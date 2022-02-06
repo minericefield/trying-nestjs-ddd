@@ -1,0 +1,16 @@
+{
+  "globalSetup": "<rootDir>/jest.setup.ts",
+  "preset": "ts-jest",
+  "testMatch": ["<rootDir>/__tests__/**/*.spec.ts"],
+  "collectCoverage": false,
+  "errorOnDeprecated": true,
+  "testEnvironment": "node",
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  }
+}
