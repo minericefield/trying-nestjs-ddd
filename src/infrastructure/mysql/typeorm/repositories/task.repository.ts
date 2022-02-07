@@ -8,7 +8,7 @@ import { ITaskRepository } from '../../../../domain/i-repository/i-task.reposito
 import { Task as TaskTypeormEntity } from '../../../mysql/typeorm/entity/task.entity';
 
 @Injectable()
-// The name "TaskRepository" not available.
+// The name 'TaskRepository' not available.
 export class TaskTypeormRepository implements ITaskRepository {
   constructor(
     @InjectRepository(TaskTypeormEntity)
@@ -56,7 +56,7 @@ export class TaskTypeormRepository implements ITaskRepository {
   }
 
   public async getNextId(): Promise<number> {
-    // TODO : Find a better way.
+    // TODO: Find a better way.
     const { maximumId } = (await this.taskTypeormEntityRepository
       .createQueryBuilder()
       .select('MAX(task.id)', 'maximumId')

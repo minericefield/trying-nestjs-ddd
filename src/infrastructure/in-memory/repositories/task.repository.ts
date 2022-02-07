@@ -6,7 +6,7 @@ import { ITaskRepository } from '../../../domain/i-repository/i-task.repository'
 
 @Injectable()
 export class TaskInMemoryRepository implements ITaskRepository {
-  // Test Data
+  // Mock.
   private _tasks = [
     {
       id: 1,
@@ -19,9 +19,6 @@ export class TaskInMemoryRepository implements ITaskRepository {
       done: false,
     },
   ];
-  public get tasks() {
-    return this._tasks;
-  }
 
   public async getAll(): Promise<Task[]> {
     return this._tasks.map(
