@@ -5,15 +5,15 @@ export class Task {
   private _name: TaskName;
   private _done: boolean;
 
-  public get id(): number {
+  get id(): number {
     return this._id;
   }
 
-  public get name(): TaskName {
+  get name(): TaskName {
     return this._name;
   }
 
-  public get done(): boolean {
+  get done(): boolean {
     return this._done;
   }
 
@@ -23,11 +23,11 @@ export class Task {
     this._done = done;
   }
 
-  public updateName(name: TaskName): void {
+  updateName(name: TaskName): void {
     this._name = name;
   }
 
-  public updateDone(done: boolean): void {
+  updateDone(done: boolean): void {
     this._done = done;
   }
 }

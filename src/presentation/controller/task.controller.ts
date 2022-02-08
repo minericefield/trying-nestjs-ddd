@@ -3,71 +3,80 @@ import {
   Controller,
   Delete,
   Get,
-  InternalServerErrorException,
+  HttpStatus,
   Param,
   Post,
   Put,
+  UseFilters,
 } from '@nestjs/common';
 
 import { TaskApplicationService } from '../../application/use-case/task.application-service';
+import {
+  CreateTaskCommand,
+  DeleteTaskCommand,
+  UpdateTaskCommand,
+} from '../../application/use-case/task.application-service.commands';
+import {
+  DefaultExceptionPresenter,
+  UnexpectedExceptionPresenter,
+} from '../exception-presenters';
 
 import {
-  GetAllTasksResponse,
-  CreateTaskRequest,
-  CreateTaskResponse,
-  UpdateTaskRequest,
-  UpdateTaskResponse,
-  DeleteTaskResponse,
+  GetAllTasksResponseDto,
+  CreateTaskRequestDto,
+  CreateTaskResponseDto,
+  UpdateTaskRequestDto,
+  UpdateTaskResponseDto,
+  DeleteTaskResponseDto,
 } from './task.controller.dtos';
 
 @Controller('tasks')
+@UseFilters(DefaultExceptionPresenter, UnexpectedExceptionPresenter)
 export class TaskController {
   constructor(
     private readonly taskApplicationService: TaskApplicationService,
   ) {}
 
   @Get()
-  async getAll(): Promise<GetAllTasksResponse> {
+  async getAll(): Promise<GetAllTasksResponseDto> {
     const tasks = await this.taskApplicationService.getAll();
 
-    return new GetAllTasksResponse(tasks);
+    return new GetAllTasksResponseDto(tasks);
   }
 
   @Post()
   async createOne(
-    @Body() createTaskRequest: CreateTaskRequest,
-  ): Promise<CreateTaskResponse> {
-    await this.taskApplicationService
-      .createOne({ name: createTaskRequest.name })
-      .catch((err) => {
-        throw new InternalServerErrorException(err.message);
-      });
+    @Body() createTaskRequestDto: CreateTaskRequestDto,
+  ): Promise<CreateTaskResponseDto> {
+    await this.taskApplicationService.createOne(
+      new CreateTaskCommand(createTaskRequestDto.name),
+    );
 
-    return { statusCode: 200 };
+    return { statusCode: HttpStatus.OK };
   }
 
   @Put('/:id')
   async updateOne(
     @Param('id') id: string,
-    @Body() updateTaskRequest: UpdateTaskRequest,
-  ): Promise<UpdateTaskResponse> {
-    await this.taskApplicationService
-      .updateOne({
-        id: Number(id),
-        name: updateTaskRequest.name,
-        done: updateTaskRequest.done,
-      })
-      .catch((err) => {
-        throw new InternalServerErrorException(err.message);
-      });
+    @Body() updateTaskRequestDto: UpdateTaskRequestDto,
+  ): Promise<UpdateTaskResponseDto> {
+    await this.taskApplicationService.updateOne(
+      new UpdateTaskCommand(
+        Number(id),
+        updateTaskRequestDto.name,
+        updateTaskRequestDto.done,
+      ),
+    );
 
-    return { statusCode: 200 };
+    return { statusCode: HttpStatus.OK };
   }
 
   @Delete('/:id')
-  async deleteOne(@Param('id') id: string): Promise<DeleteTaskResponse> {
-    await this.taskApplicationService.deleteOne({ id: Number(id) });
+  async deleteOne(@Param('id') id: string): Promise<DeleteTaskResponseDto> {
+    await this.taskApplicationService.deleteOne(
+      new DeleteTaskCommand(Number(id)),
+    );
 
-    return { statusCode: 200 };
+    return { statusCode: HttpStatus.OK };
   }
 }

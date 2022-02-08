@@ -15,7 +15,7 @@ export class TaskTypeormRepository implements ITaskRepository {
     private readonly taskTypeormEntityRepository: Repository<TaskTypeormEntity>,
   ) {}
 
-  public async getAll(): Promise<Task[]> {
+  async getAll(): Promise<Task[]> {
     const taskDatas = await this.taskTypeormEntityRepository.find({});
 
     return taskDatas.map(
@@ -24,7 +24,7 @@ export class TaskTypeormRepository implements ITaskRepository {
     );
   }
 
-  public async save(task: Task): Promise<void> {
+  async save(task: Task): Promise<void> {
     await this.taskTypeormEntityRepository.save({
       id: task.id,
       name: task.name.value,
@@ -32,18 +32,18 @@ export class TaskTypeormRepository implements ITaskRepository {
     });
   }
 
-  public async updateOne(task: Task): Promise<void> {
+  async updateOne(task: Task): Promise<void> {
     const taskData = await this.taskTypeormEntityRepository.findOne(task.id);
     taskData.name = task.name.value;
     taskData.done = task.done;
     await this.taskTypeormEntityRepository.save(taskData);
   }
 
-  public async deleteOne(id: number): Promise<void> {
+  async deleteOne(id: number): Promise<void> {
     await this.taskTypeormEntityRepository.delete(id);
   }
 
-  public async findOneByName(taskName: TaskName): Promise<Task | null> {
+  async findOneByName(taskName: TaskName): Promise<Task | null> {
     const taskData = await this.taskTypeormEntityRepository.findOne({
       name: taskName.value,
     });
@@ -55,7 +55,7 @@ export class TaskTypeormRepository implements ITaskRepository {
     }
   }
 
-  public async getNextId(): Promise<number> {
+  async getNextId(): Promise<number> {
     // TODO: Find a better way.
     const { maximumId } = (await this.taskTypeormEntityRepository
       .createQueryBuilder()

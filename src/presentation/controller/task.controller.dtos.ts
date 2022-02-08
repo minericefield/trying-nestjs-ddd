@@ -1,9 +1,11 @@
+import { HttpStatus } from '@nestjs/common';
+
 import { Task } from '../../domain/domain-object/entity/task';
 
-export class GetAllTasksResponse {
+export class GetAllTasksResponseDto {
   // The property name 'statusCode' is derived from nestjs exception.
-  public statusCode = 200;
-  public tasks: { id: number; name: string; done: boolean }[];
+  statusCode = HttpStatus.OK;
+  tasks: { id: number; name: string; done: boolean }[];
 
   constructor(_tasks: Task[]) {
     this.tasks = _tasks.map((task) => {
@@ -12,23 +14,23 @@ export class GetAllTasksResponse {
   }
 }
 
-export interface CreateTaskRequest {
+export interface CreateTaskRequestDto {
   name: string;
 }
 
-export interface CreateTaskResponse {
-  statusCode: number;
+export interface CreateTaskResponseDto {
+  statusCode: HttpStatus;
 }
 
-export interface UpdateTaskRequest {
+export interface UpdateTaskRequestDto {
   name: string;
   done: boolean;
 }
 
-export interface UpdateTaskResponse {
-  statusCode: number;
+export interface UpdateTaskResponseDto {
+  statusCode: HttpStatus;
 }
 
-export interface DeleteTaskResponse {
-  statusCode: number;
+export interface DeleteTaskResponseDto {
+  statusCode: HttpStatus;
 }

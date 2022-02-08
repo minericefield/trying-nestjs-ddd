@@ -1,15 +1,11 @@
-// TODO: Validation e.g class-validator or make yourself...
-
-export interface CreateTaskCommand {
-  name: string;
+export class CreateTaskCommand {
+  constructor(public name: string) {}
 }
 
-export interface UpdateTaskCommand {
-  id: number;
-  name: string;
-  done: boolean;
+export class UpdateTaskCommand {
+  constructor(public id: number, public name: string, public done: boolean) {}
 }
 
-export interface DeleteTaskCommand {
-  id: number;
+export class DeleteTaskCommand {
+  constructor(public id: number) {}
 }

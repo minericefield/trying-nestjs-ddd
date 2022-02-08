@@ -1,6 +1,6 @@
-import process from 'process';
-
 import { DynamicModule, Module } from '@nestjs/common';
+
+import { Exception } from '../exception';
 
 import { InMemoryRepositoryModule } from './in-memory/module';
 import { MysqlTypeormModule } from './mysql/typeorm/module';
@@ -20,7 +20,7 @@ export class RepositoryModule {
         repositoryModule = MysqlTypeormModule;
         break;
       default:
-        throw 'Please provide a proper "REPOSITORY_TYPE"';
+        throw new Exception('Please provide a proper "REPOSITORY_TYPE"');
     }
 
     return {

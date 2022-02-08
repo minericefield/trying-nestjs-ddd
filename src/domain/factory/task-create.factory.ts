@@ -9,7 +9,7 @@ import { ITaskRepository } from '../i-repository/i-task.repository';
 export class TaskCreateFactory implements ITaskCreateFactory {
   constructor(private readonly taskRepository: ITaskRepository) {}
 
-  public async handle(taskName: TaskName): Promise<Task> {
+  async handle(taskName: TaskName): Promise<Task> {
     const id = await this.taskRepository.getNextId();
     return new Task(id, taskName);
   }
