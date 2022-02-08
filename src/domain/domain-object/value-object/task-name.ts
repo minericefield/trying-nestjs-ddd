@@ -1,3 +1,5 @@
+import { Exception } from '../../../exception';
+
 export class TaskName {
   private _value: string;
 
@@ -6,13 +8,11 @@ export class TaskName {
   }
 
   constructor(value: string) {
-    if (value.length === 0) {
-      throw new Error('Task name must not be empty.');
-    }
+    if (value.length === 0)
+      throw new Exception('Task name should not be empty.');
 
-    if (value.length > 20) {
-      throw new Error('Task name must not be longer than 20 characters.');
-    }
+    if (value.length > 20)
+      throw new Exception('Task name should not be longer than 20 characters.');
 
     this._value = value;
   }

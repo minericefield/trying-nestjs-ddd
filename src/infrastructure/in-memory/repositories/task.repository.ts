@@ -6,7 +6,7 @@ import { ITaskRepository } from '../../../domain/i-repository/i-task.repository'
 
 @Injectable()
 export class TaskInMemoryRepository implements ITaskRepository {
-  // Test Data
+  // Mock.
   private _tasks = [
     {
       id: 1,
@@ -19,18 +19,15 @@ export class TaskInMemoryRepository implements ITaskRepository {
       done: false,
     },
   ];
-  public get tasks() {
-    return this._tasks;
-  }
 
-  public async getAll(): Promise<Task[]> {
+  async getAll(): Promise<Task[]> {
     return this._tasks.map(
       (taskData) =>
         new Task(taskData.id, new TaskName(taskData.name), taskData.done),
     );
   }
 
-  public async save(task: Task): Promise<void> {
+  async save(task: Task): Promise<void> {
     this._tasks.push({
       id: task.id,
       name: task.name.value,
@@ -38,7 +35,7 @@ export class TaskInMemoryRepository implements ITaskRepository {
     });
   }
 
-  public async updateOne(task: Task): Promise<void> {
+  async updateOne(task: Task): Promise<void> {
     this._tasks = this._tasks.map((_task) => {
       if (_task.id === task.id) {
         return { id: task.id, name: task.name.value, done: task.done };
@@ -48,7 +45,7 @@ export class TaskInMemoryRepository implements ITaskRepository {
     });
   }
 
-  public async deleteOne(id: number): Promise<void> {
+  async deleteOne(id: number): Promise<void> {
     this._tasks = this._tasks
       .map((_task) => {
         if (_task.id !== id) {
@@ -58,7 +55,7 @@ export class TaskInMemoryRepository implements ITaskRepository {
       .filter(Boolean);
   }
 
-  public async findOneByName(taskName: TaskName): Promise<Task | null> {
+  async findOneByName(taskName: TaskName): Promise<Task | null> {
     const taskData = this._tasks.find((_task) => {
       return _task.name === taskName.value;
     });
@@ -70,7 +67,7 @@ export class TaskInMemoryRepository implements ITaskRepository {
     }
   }
 
-  public async getNextId(): Promise<number> {
+  async getNextId(): Promise<number> {
     return this._tasks.length + 1;
   }
 }

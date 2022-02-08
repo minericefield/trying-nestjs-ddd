@@ -4,4 +4,7 @@ Not covering all patterns.
 
 ### TODO: 
   - Create test design pattern.
-  - Add mode tests.
+    - Create test format.
+    - Managing mock data.
+    - ...
+  - Add more tests.
