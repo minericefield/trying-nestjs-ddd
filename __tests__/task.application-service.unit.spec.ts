@@ -6,6 +6,7 @@ import { TaskApplicationService } from '../src/application/use-case/task.applica
 import { Task } from '../src/domain/domain-object/entity/task';
 import { TaskName } from '../src/domain/domain-object/value-object/task-name';
 import { ITaskRepository } from '../src/domain/i-repository/i-task.repository';
+import { Exception } from '../src/exception';
 
 describe('TaskApplicationService (unit)', () => {
   let app: INestApplication;
@@ -45,5 +46,15 @@ describe('TaskApplicationService (unit)', () => {
       new Task(2, new TaskName('Create database.'), false),
       new Task(3, new TaskName('New Task.'), false),
     ]);
+  });
+
+  it('createOne duplicated', () => {
+    applicationService
+      .createOne({
+        name: 'Install mysql.',
+      })
+      .catch((error) => {
+        expect(error).toEqual(new Exception('Same task already exists.'));
+      });
   });
 });
