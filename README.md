@@ -4,6 +4,7 @@ Based on layered architecture.
 
 # Development
 
+- Install dependencies by running `yarn install`.
 - Copy the **.env.example** as **.env**.
 - Add values to the **.env**.
 - Create **trying_nestjs_ddd** to your mysql database.
@@ -11,7 +12,6 @@ Based on layered architecture.
   - Initialize data by running `yarn seed`.
   - If you wan't to use **in-memory repository**, switch the **REPOSITORY_TYPE** to **in-memory**.  
   In this case, no database is needed.
-- Install dependencies by running `yarn install`.
 - Start development by running `yarn start:dev`.
 
 # Rough requirement definition
