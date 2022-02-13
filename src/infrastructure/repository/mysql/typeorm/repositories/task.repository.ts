@@ -43,6 +43,16 @@ export class TaskTypeormRepository implements ITaskRepository {
     await this.taskTypeormEntityRepository.delete(id);
   }
 
+  async findOneById(id: number): Promise<Task | null> {
+    const taskData = await this.taskTypeormEntityRepository.findOne(id);
+
+    if (taskData) {
+      return new Task(taskData.id, new TaskName(taskData.name), taskData.done);
+    } else {
+      return null;
+    }
+  }
+
   async findOneByName(taskName: TaskName): Promise<Task | null> {
     const taskData = await this.taskTypeormEntityRepository.findOne({
       name: taskName.value,

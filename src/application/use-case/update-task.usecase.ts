@@ -16,11 +16,12 @@ export class UpdateTaskUseCase {
   ) {}
 
   async handle(updateTaskCommand: UpdateTaskCommand): Promise<void> {
-    const task = new Task(
-      updateTaskCommand.id,
-      new TaskName(updateTaskCommand.name),
-      updateTaskCommand.done,
-    );
+    const task = await this.taskRepository.findOneById(updateTaskCommand.id);
+    if (!task)
+      throw new Exception(`Cannot find task (id: ${updateTaskCommand.id}).`);
+
+    task.updateName(new TaskName(updateTaskCommand.name));
+    task.updateDone(updateTaskCommand.done);
 
     // TODO: Fix bug. Since in this way, updating only status is not available.
     const doesTaskExist = await this.duplicateTaskChecker.handle(task);

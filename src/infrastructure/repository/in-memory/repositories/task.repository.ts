@@ -55,6 +55,18 @@ export class TaskInMemoryRepository implements ITaskRepository {
       .filter(Boolean);
   }
 
+  async findOneById(id: number): Promise<Task | null> {
+    const taskData = this.tasks.find((_task) => {
+      return _task.id === id;
+    });
+
+    if (taskData) {
+      return new Task(taskData.id, new TaskName(taskData.name), taskData.done);
+    } else {
+      return null;
+    }
+  }
+
   async findOneByName(taskName: TaskName): Promise<Task | null> {
     const taskData = this.tasks.find((_task) => {
       return _task.name === taskName.value;
