@@ -1,6 +1,6 @@
 import { DynamicModule, Module } from '@nestjs/common';
 
-import { Exception } from '../exception';
+import { Exception } from '../../exception';
 
 import { InMemoryRepositoryModule } from './in-memory/module';
 import { MysqlTypeormModule } from './mysql/typeorm/module';

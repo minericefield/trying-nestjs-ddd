@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 
-import { TaskApplicationService } from './application/use-case/task.application-service';
-import { TaskCheckDuplicateDomainService } from './domain/domain-service/task-check-duplicate.domain-service';
-import { TaskCreateFactory } from './domain/factory/task-create.factory';
-import { RepositoryModule } from './infrastructure/repository.module';
+import { CreateTaskUseCase } from './application/use-case/create-task.usecase';
+import { DeleteTaskUseCase } from './application/use-case/delete-task.usecase';
+import { GetAllTasksUseCase } from './application/use-case/get-all-tasks.usecase';
+import { UpdateTaskUseCase } from './application/use-case/update-task.usecase';
+import { DuplicateTaskChecker } from './domain/domain-service/duplicate-task-checker';
+import { NewTaskCreator } from './domain/factory/new-task-creator';
+import { RepositoryModule } from './infrastructure/repository/repository.module';
 import { TaskController } from './presentation/controller/task.controller';
 
 @Module({
@@ -11,11 +14,14 @@ import { TaskController } from './presentation/controller/task.controller';
   controllers: [TaskController],
   providers: [
     // Entity factory
-    TaskCreateFactory,
+    NewTaskCreator,
     // Domain service
-    TaskCheckDuplicateDomainService,
+    DuplicateTaskChecker,
     // Application service
-    TaskApplicationService,
+    CreateTaskUseCase,
+    DeleteTaskUseCase,
+    GetAllTasksUseCase,
+    UpdateTaskUseCase,
   ],
 })
 export class AppModule {}

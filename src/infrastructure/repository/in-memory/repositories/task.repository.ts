@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 
-import { Task } from '../../../domain/domain-object/entity/task';
-import { TaskName } from '../../../domain/domain-object/value-object/task-name';
-import { ITaskRepository } from '../../../domain/i-repository/i-task.repository';
+import { Task } from '../../../../domain/domain-object/entity/task';
+import { TaskName } from '../../../../domain/domain-object/value-object/task-name';
+import { ITaskRepository } from '../../../../domain/i-repository/i-task.repository';
 
 @Injectable()
 export class TaskInMemoryRepository implements ITaskRepository {
   // Mock.
-  private _tasks = [
+  private tasks = [
     {
       id: 1,
       name: 'Install mysql.',
@@ -21,14 +21,14 @@ export class TaskInMemoryRepository implements ITaskRepository {
   ];
 
   async getAll(): Promise<Task[]> {
-    return this._tasks.map(
+    return this.tasks.map(
       (taskData) =>
         new Task(taskData.id, new TaskName(taskData.name), taskData.done),
     );
   }
 
   async save(task: Task): Promise<void> {
-    this._tasks.push({
+    this.tasks.push({
       id: task.id,
       name: task.name.value,
       done: task.done,
@@ -36,7 +36,7 @@ export class TaskInMemoryRepository implements ITaskRepository {
   }
 
   async updateOne(task: Task): Promise<void> {
-    this._tasks = this._tasks.map((_task) => {
+    this.tasks = this.tasks.map((_task) => {
       if (_task.id === task.id) {
         return { id: task.id, name: task.name.value, done: task.done };
       }
@@ -46,7 +46,7 @@ export class TaskInMemoryRepository implements ITaskRepository {
   }
 
   async deleteOne(id: number): Promise<void> {
-    this._tasks = this._tasks
+    this.tasks = this.tasks
       .map((_task) => {
         if (_task.id !== id) {
           return _task;
@@ -56,7 +56,7 @@ export class TaskInMemoryRepository implements ITaskRepository {
   }
 
   async findOneByName(taskName: TaskName): Promise<Task | null> {
-    const taskData = this._tasks.find((_task) => {
+    const taskData = this.tasks.find((_task) => {
       return _task.name === taskName.value;
     });
 
@@ -68,6 +68,6 @@ export class TaskInMemoryRepository implements ITaskRepository {
   }
 
   async getNextId(): Promise<number> {
-    return this._tasks.length + 1;
+    return this.tasks.length + 1;
   }
 }

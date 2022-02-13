@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Task } from '../../../../domain/domain-object/entity/task';
-import { TaskName } from '../../../../domain/domain-object/value-object/task-name';
-import { ITaskRepository } from '../../../../domain/i-repository/i-task.repository';
+import { Task } from '../../../../../domain/domain-object/entity/task';
+import { TaskName } from '../../../../../domain/domain-object/value-object/task-name';
+import { ITaskRepository } from '../../../../../domain/i-repository/i-task.repository';
 import { Task as TaskTypeormEntity } from '../../../mysql/typeorm/entity/task.entity';
 
 @Injectable()
