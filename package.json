@@ -15,11 +15,11 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "migration": "ts-node -r tsconfig-paths/register -r tsconfig-paths/register node_modules/typeorm/cli.js --config src/infrastructure/mysql/typeorm/ormconfig.ts migration:run",
-    "migration:show": "ts-node -r tsconfig-paths/register -r tsconfig-paths/register node_modules/typeorm/cli.js --config src/infrastructure/mysql/typeorm/ormconfig.ts migration:show",
-    "migration:gen": "ts-node -r tsconfig-paths/register -r tsconfig-paths/register node_modules/typeorm/cli.js --config src/infrastructure/mysql/typeorm/ormconfig.ts migration:generate",
-    "migration:revert": "ts-node -r tsconfig-paths/register -r tsconfig-paths/register node_modules/typeorm/cli.js --config src/infrastructure/mysql/typeorm/ormconfig.ts migration:revert",
-    "seed": "ts-node -r tsconfig-paths/register -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js --configName src/infrastructure/mysql/typeorm/ormconfig.ts seed"
+    "migration": "ts-node -r tsconfig-paths/register -r tsconfig-paths/register node_modules/typeorm/cli.js --config src/infrastructure/repository/mysql/typeorm/ormconfig.ts migration:run",
+    "migration:show": "ts-node -r tsconfig-paths/register -r tsconfig-paths/register node_modules/typeorm/cli.js --config src/infrastructure/repository/mysql/typeorm/ormconfig.ts migration:show",
+    "migration:gen": "ts-node -r tsconfig-paths/register -r tsconfig-paths/register node_modules/typeorm/cli.js --config src/infrastructure/repository/mysql/typeorm/ormconfig.ts migration:generate",
+    "migration:revert": "ts-node -r tsconfig-paths/register -r tsconfig-paths/register node_modules/typeorm/cli.js --config src/infrastructure/repository/mysql/typeorm/ormconfig.ts migration:revert",
+    "seed": "ts-node -r tsconfig-paths/register -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js --configName src/infrastructure/repository/mysql/typeorm/ormconfig.ts seed"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

@@ -4,6 +4,6 @@ import { TaskName } from '../value-object/task-name';
 
 import { Task } from './task';
 
-export interface ITaskCreateFactory {
+export interface INewTaskCreator {
   handle(taskName: TaskName): Promise<Task>;
 }

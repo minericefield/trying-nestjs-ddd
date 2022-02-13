@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
-import { ITaskCreateFactory } from '../domain-object/entity/i-task-create.factory';
+import { INewTaskCreator } from '../domain-object/entity/i-new-task-creator';
 import { Task } from '../domain-object/entity/task';
 import { TaskName } from '../domain-object/value-object/task-name';
 import { ITaskRepository } from '../i-repository/i-task.repository';
 
 @Injectable()
-export class TaskCreateFactory implements ITaskCreateFactory {
+export class NewTaskCreator implements INewTaskCreator {
   constructor(private readonly taskRepository: ITaskRepository) {}
 
   async handle(taskName: TaskName): Promise<Task> {

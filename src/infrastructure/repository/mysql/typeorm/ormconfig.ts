@@ -2,7 +2,7 @@ import { resolve } from 'path';
 
 import { ConnectionOptions } from 'typeorm';
 
-import '../../../load-env';
+import '../../../../load-env';
 
 export default <ConnectionOptions>{
   type: 'mysql',
