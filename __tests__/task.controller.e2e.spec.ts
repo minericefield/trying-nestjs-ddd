@@ -35,4 +35,14 @@ describe('TaskController (e2e)', () => {
         ],
       });
   });
+
+  it('/tasks (POST) duplicate error', () => {
+    return request(app.getHttpServer())
+      .post('/tasks')
+      .send({ name: 'Install mysql.' })
+      .expect({
+        statusCode: 500,
+        message: 'Same task already exists.',
+      });
+  });
 });
